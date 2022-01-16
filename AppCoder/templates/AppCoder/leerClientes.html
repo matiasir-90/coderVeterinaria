@@ -1,0 +1,25 @@
+{% extends "AppCoder/padre.html" %}
+
+    {% load static %}
+    <title>Leo los clientes</title>
+    {% block contenidoQueCambia %}
+    {% for p in clientes %}
+
+        <li>{{p}}  
+        <button>
+            <a href="{% url 'EliminarCliente' p.nombre %}"> Eliminar</a> 
+        </button>
+        <button>
+            <a href="{% url 'EditarCliente' p.nombre %}"> Editar</a>
+        </button>
+        </li>
+
+
+    {% endfor %}
+
+    <br>
+    <button>
+    <a href="clientes">Agregar otro Cliente</a>
+    </button>
+    
+{% endblock %}
