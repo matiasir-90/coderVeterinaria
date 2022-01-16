@@ -1,0 +1,28 @@
+{% extends "AppCoder/padre.html" %}
+
+    {% load static %}
+    <title>Leo los animales</title>
+    {% block titulo %}
+
+    <h1 class="mb-0">Nuestros Animales en adopcion </h1>
+    {% endblock %}
+
+    {% block contenidoQueCambia %}
+
+    {% for p in animales %}
+
+        <li>{{p}}</li>  
+        <button>
+            <a href="{% url 'EliminarAnimal' p.nombre %}"> Eliminar</a>
+            <a href="{% url 'EditarAnimal' p.nombre %}"> Editar</a>
+        </button>
+
+
+
+    {% endfor %}
+
+    <br>
+    <a href="animal">Agregar otro Animal</a>
+
+    
+{% endblock %}

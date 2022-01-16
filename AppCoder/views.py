@@ -2,8 +2,8 @@ from typing import List
 from django.http.request import QueryDict
 from django.shortcuts import redirect, render, HttpResponse
 from django.http import HttpResponse
-from AppCoder.models import Curso, Profesor,Cliente
-from AppCoder.forms import CursoFormulario, ProfesorFormulario,ClienteFormulario
+from AppCoder.models import Animal, Curso, Doctor, Profesor,Cliente
+from AppCoder.forms import CursoFormulario, ProfesorFormulario,ClienteFormulario,AnimalFormulario,DoctorFormulario
 
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -224,6 +224,7 @@ def cliente(request):
 
       return HttpResponse(documentoDeTexto)
 
+##########################################################################################################################################################################
 def clientes(request):
     
       if request.method == 'POST':
@@ -317,3 +318,161 @@ class ClienteUpdate(UpdateView):
 class ClienteDelete(DeleteView):
     model = Cliente
     success_url = "../cliente/list"
+
+#########################################################################################################################################################################################
+
+def animales(request):
+    
+      if request.method == 'POST':
+
+            miFormulario = AnimalFormulario(request.POST) #aquí mellega toda la información del html
+
+            print(miFormulario)
+
+            if miFormulario.is_valid:   #Si pasó la validación de Django
+
+                  informacion = miFormulario.cleaned_data
+
+                  animal = Animal ( nombre=informacion['nombre'], apellido=informacion['apellido'], direccion=informacion['direccion']) 
+              
+                  animal.save()
+
+                  return render(request, "AppCoder/leerAnimales.html") #Vuelvo al inicio o a donde quieran
+
+      else: 
+
+            miFormulario= ClienteFormulario() #Formulario vacio para construir el html
+
+      return render(request, "AppCoder/animales.html", {"miFormulario":miFormulario})
+
+def leerAnimales(request):
+    
+      animales = Animal.objects.all() #trae todos los Cliente
+
+      contexto= {"animales":animales} 
+
+      return render(request, "AppCoder/leerAnimales.html",contexto)
+
+
+def eliminarAnimal(request, animal_nro):
+
+      animales = Animal.objects.get(nombre=animal_nro)
+      animales.delete()
+      
+      #vuelvo al menú
+      animal = Animal.objects.all() #trae todos los profesores
+
+      contexto= {"animales":animal} 
+
+      return render(request, "AppCoder/leerAnimales.html",contexto)
+
+def editarAnimal(request, animal_nro):
+    
+      #Recibe el nombre del profesor que vamos a modificar
+      animal = Animal.objects.get(nombre=animal_nro)
+
+      #Si es metodo POST hago lo mismo que el agregar
+      if request.method == 'POST':
+
+            miFormulario = AnimalFormulario(request.POST) #aquí mellega toda la información del html
+
+            print(miFormulario)
+
+            if miFormulario.is_valid:   #Si pasó la validación de Django
+
+                  informacion = miFormulario.cleaned_data
+
+                  animal.nombre = informacion['nombre']
+                  animal.apellido = informacion['apellido']
+                  animal.direccion = informacion['direccion']
+
+                  animal.save()
+
+                  return render(request, "AppCoder/leerClientes.html") #Vuelvo al inicio o a donde quieran
+      #En caso que no sea post
+      else: 
+            #Creo el formulario con los datos que voy a modificar
+            miFormulario= ClienteFormulario(initial={'nombre': animal.nombre, 'apellido':animal.apellido , 
+            'direccion':animal.direccion}) 
+
+      #Voy al html que me permite editar
+      return render(request, "AppCoder/editarAnimal.html", {"miFormulario":miFormulario, "animal_nro":animal_nro})
+######################################################################################################################################################
+
+
+def doctores(request):
+    
+      if request.method == 'POST':
+
+            miFormulario = DoctorFormulario(request.POST) #aquí mellega toda la información del html
+
+            print(miFormulario)
+
+            if miFormulario.is_valid:   #Si pasó la validación de Django
+
+                  informacion = miFormulario.cleaned_data
+
+                  doctor = Doctor ( nombre=informacion['nombre'], apellido=informacion['apellido'], direccion=informacion['direccion']) 
+              
+                  doctor.save()
+
+                  return render(request, "AppCoder/leerDoctores.html") #Vuelvo al inicio o a donde quieran
+
+      else: 
+
+            miFormulario= ClienteFormulario() #Formulario vacio para construir el html
+
+      return render(request, "AppCoder/Doctores.html", {"miFormulario":miFormulario})
+
+def leerDoctores(request):
+    
+      doctores = Doctor.objects.all() #trae todos los Cliente
+
+      contexto= {"doctores":doctores} 
+
+      return render(request, "AppCoder/leerDoctores.html",contexto)
+
+
+def eliminarDoctor(request, doctor_nro):
+
+      doctor = Doctor.objects.get(nombre=doctor_nro)
+      doctor.delete()
+      
+      #vuelvo al menú
+      doctor = Doctor.objects.all() #trae todos los profesores
+
+      contexto= {"doctores":doctor} 
+
+      return render(request, "AppCoder/leerDoctores.html",contexto)
+
+def editarDoctor(request, doctor_nro):
+    
+      #Recibe el nombre del profesor que vamos a modificar
+      doctor = Doctor.objects.get(nombre=doctor_nro)
+
+      #Si es metodo POST hago lo mismo que el agregar
+      if request.method == 'POST':
+
+            miFormulario = DoctorFormulario(request.POST) #aquí mellega toda la información del html
+
+            print(miFormulario)
+
+            if miFormulario.is_valid:   #Si pasó la validación de Django
+
+                  informacion = miFormulario.cleaned_data
+
+                  doctor.nombre = informacion['nombre']
+                  doctor.apellido = informacion['apellido']
+                  doctor.direccion = informacion['direccion']
+
+                  doctor.save()
+
+                  return render(request, "AppCoder/leerDoctores.html") #Vuelvo al inicio o a donde quieran
+      #En caso que no sea post
+      else: 
+            #Creo el formulario con los datos que voy a modificar
+            miFormulario= ClienteFormulario(initial={'nombre': doctor.nombre, 'apellido':doctor.apellido , 
+            'direccion':doctor.direccion}) 
+
+      #Voy al html que me permite editar
+      return render(request, "AppCoder/editarAnimal.html", {"miFormulario":miFormulario, "animal_nro":doctor_nro})

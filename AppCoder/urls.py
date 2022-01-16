@@ -33,10 +33,16 @@ urlpatterns = [
     path('leerClientes', views.leerClientes, name="LeerClientes"),
     path('eliminarCliente/<cliente_nro>/', views.eliminarCliente, name="EliminarCliente"),
     path('editarCliente/<cliente_nro>/', views.editarCliente, name="EditarCliente"),
-    path(r'^(?P<pk>\d+)$', views.ClienteDetalle.as_view(), name='Detail'),
-    path(r'^nuevo$', views.ClienteCreacion.as_view, name='New'),
-    path(r'^editar/(?P<pk>\d+)$', views.ClienteUpdate.as_view(), name='Edit'),
-    path(r'^borrar/(?P<pk>\d+)$', views.ClienteDelete.as_view(), name='Delete'),
+  
+    path('animales', views.animales, name="Animal"),
+    path('leerAnimal', views.leerAnimales, name="LeerAnimales"),
+    path('eliminarAnimal/<animal_nro>/', views.eliminarAnimal, name="EliminarAnimal"),
+    path('editarAnimal/<animal_nro>/', views.editarCliente, name="EditarAnimal"),
+    
+    path('doctores', views.clientes, name="Doctor"),
+    path('leerDoctores', views.leerDoctores, name="LeerDoctores"),
+    path('eliminarDoctor/<doctor_nro>/', views.eliminarDoctor, name="EliminarDoctor"),
+    path('editarDoctor/<Doctor_nro>/', views.editarDoctor, name="EditarDoctor"),
  
 ]
 

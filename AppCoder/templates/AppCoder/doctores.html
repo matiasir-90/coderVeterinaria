@@ -1,12 +1,15 @@
 {% extends "AppCoder/padre.html" %}
 
 {% load static %}
+{% block titulo %}
 
+<h1 class="mb-0">Nuestros Doctores</h1>
+{% endblock %}
 {% block contenidoQueCambia %}
 
 
     <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    <h1>Formulario - Agregar Profesor</h1>
+    <h1>Formulario - Agregar Doctor</h1>
     
     {% if miFormulario.errors %}
 

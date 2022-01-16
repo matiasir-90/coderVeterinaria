@@ -2,6 +2,10 @@
 
     {% load static %}
     <title>Leo los clientes</title>
+    {% block titulo %}
+
+    <h1 class="mb-0">Nuestros Clientes </h1>
+    {% endblock %}
     {% block contenidoQueCambia %}
     {% for p in clientes %}
 

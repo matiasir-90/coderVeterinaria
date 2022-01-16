@@ -28,8 +28,8 @@
                 <a class="navbar-brand" href="{% url 'Profesores' %}">Profesores</a>
                 <a class="navbar-brand" href="{% url 'Cursos' %}">Cursos</a>
                 <a class="navbar-brand" href="{% url 'LeerClientes' %}">Clientes</a>
-                <a class="navbar-brand" href="{% url 'Estudiantes' %}">Estudiantes</a>
-                <a class="navbar-brand" href="{% url 'Entregables' %}">Entregables</a>
+                <a class="navbar-brand" href="{% url 'LeerDoctores' %}">Doctores</a>
+                <a class="navbar-brand" href="{% url 'LeerAnimales' %}">Animales</a>
                 <a class="btn btn-primary" href="#NADAAUN">INICIAR</a>
             </div>
         </nav>
@@ -42,7 +42,10 @@
                     <div class="col-xl-6">
                         <div class="text-center text-white">
                             <!-- Page heading-->
-                            <h1 class="mb-5">Nuestra web Intermedia de Django - CoderHouse</h1>
+                            {% block titulo %}
+
+                            
+                            {% endblock %}
                             <!-- Signup form-->
                             <!-- * * * * * * * * * * * * * * *-->
                             <!-- * * SB Forms Contact Form * *-->
@@ -73,7 +76,7 @@
         <footer class="footer bg-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                    <div class="col-lg-6 h-50 text-center text-lg-start my-auto">
                         <ul class="list-inline mb-2">
                             <li class="list-inline-item"><a href="#!">Ayuda</a></li>
                             <li class="list-inline-item">⋅</li>
