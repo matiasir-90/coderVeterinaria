@@ -33,4 +33,3 @@ class DoctorFormulario(forms.Form):
     nombre= forms.CharField(max_length=40)
     direccion= forms.CharField(max_length=40)
     especialidad= forms.CharField(max_length=40)
-    matricula= forms.IntegerField
