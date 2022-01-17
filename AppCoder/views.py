@@ -333,7 +333,7 @@ def animales(request):
 
                   informacion = miFormulario.cleaned_data
 
-                  animal = Animal ( nombre=informacion['nombre'], apellido=informacion['apellido'], direccion=informacion['direccion']) 
+                  animal = Animal ( nombre=informacion['nombre'], especie=informacion['especie'], raza=informacion['raza'],antecedentes=informacion['antecedentes']) 
               
                   animal.save()
 
@@ -341,7 +341,7 @@ def animales(request):
 
       else: 
 
-            miFormulario= ClienteFormulario() #Formulario vacio para construir el html
+            miFormulario= AnimalFormulario() #Formulario vacio para construir el html
 
       return render(request, "AppCoder/animales.html", {"miFormulario":miFormulario})
 
@@ -366,10 +366,10 @@ def eliminarAnimal(request, animal_nro):
 
       return render(request, "AppCoder/leerAnimales.html",contexto)
 
-def editarAnimal(request, animal_nro):
+def editarAnimal(request, nombre_nro):
     
       #Recibe el nombre del profesor que vamos a modificar
-      animal = Animal.objects.get(nombre=animal_nro)
+      animal = Animal.objects.get(nombre=nombre_nro)
 
       #Si es metodo POST hago lo mismo que el agregar
       if request.method == 'POST':
@@ -383,20 +383,21 @@ def editarAnimal(request, animal_nro):
                   informacion = miFormulario.cleaned_data
 
                   animal.nombre = informacion['nombre']
-                  animal.apellido = informacion['apellido']
-                  animal.direccion = informacion['direccion']
+                  animal.especie = informacion['especie']
+                  animal.raza = informacion['raza']
+                  animal.antecedentes = informacion['antecedentes']
+                  
 
                   animal.save()
 
-                  return render(request, "AppCoder/leerClientes.html") #Vuelvo al inicio o a donde quieran
+                  return render(request, "AppCoder/leerAnimales.html") #Vuelvo al inicio o a donde quieran
       #En caso que no sea post
       else: 
             #Creo el formulario con los datos que voy a modificar
-            miFormulario= ClienteFormulario(initial={'nombre': animal.nombre, 'apellido':animal.apellido , 
-            'direccion':animal.direccion}) 
+            miFormulario= AnimalFormulario(initial={'nombre': animal.nombre, 'especie':animal.especie , 'raza':animal.raza,'antecedentes':animal.antecedentes}) 
 
       #Voy al html que me permite editar
-      return render(request, "AppCoder/editarAnimal.html", {"miFormulario":miFormulario, "animal_nro":animal_nro})
+      return render(request, "AppCoder/editarAnimal.html", {"miFormulario":miFormulario, "nombre":nombre_nro})
 ######################################################################################################################################################
 
 
@@ -412,17 +413,16 @@ def doctores(request):
 
                   informacion = miFormulario.cleaned_data
 
-                  doctor = Doctor ( nombre=informacion['nombre'], apellido=informacion['apellido'], direccion=informacion['direccion']) 
-              
+                  doctor = Doctor(nombre=informacion['nombre'],direccion=informacion['direccion'], especialidad=informacion['especialidad']) 
                   doctor.save()
 
                   return render(request, "AppCoder/leerDoctores.html") #Vuelvo al inicio o a donde quieran
 
       else: 
 
-            miFormulario= ClienteFormulario() #Formulario vacio para construir el html
+            miFormulario= DoctorFormulario() #Formulario vacio para construir el html
 
-      return render(request, "AppCoder/Doctores.html", {"miFormulario":miFormulario})
+      return render(request, "AppCoder/doctores.html", {"miFormulario":miFormulario})
 
 def leerDoctores(request):
     
@@ -462,17 +462,16 @@ def editarDoctor(request, doctor_nro):
                   informacion = miFormulario.cleaned_data
 
                   doctor.nombre = informacion['nombre']
-                  doctor.apellido = informacion['apellido']
                   doctor.direccion = informacion['direccion']
-
+                  doctor.especialidad = informacion['especialidad']
+    
                   doctor.save()
 
                   return render(request, "AppCoder/leerDoctores.html") #Vuelvo al inicio o a donde quieran
       #En caso que no sea post
       else: 
             #Creo el formulario con los datos que voy a modificar
-            miFormulario= ClienteFormulario(initial={'nombre': doctor.nombre, 'apellido':doctor.apellido , 
-            'direccion':doctor.direccion}) 
+            miFormulario= DoctorFormulario(initial={'nombre': doctor.nombre,'direccion':doctor.direccion,'especialidad':doctor.especialidad}) 
 
       #Voy al html que me permite editar
-      return render(request, "AppCoder/editarAnimal.html", {"miFormulario":miFormulario, "animal_nro":doctor_nro})
+      return render(request, "AppCoder/editarDoctor.html", {"miFormulario":miFormulario, "nombre":doctor_nro})

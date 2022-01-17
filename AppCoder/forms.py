@@ -30,7 +30,7 @@ class ClienteFormulario(forms.Form):
     direccion=forms.CharField(max_length=40)
     
 class DoctorFormulario(forms.Form):   
-    nombre= forms.CharField(max_length=30)
-    apellido= forms.CharField(max_length=30)
-    email= forms.EmailField()
-    profesion= forms.CharField(max_length=30)
+    nombre= forms.CharField(max_length=40)
+    direccion= forms.CharField(max_length=40)
+    especialidad= forms.CharField(max_length=40)
+    matricula= forms.IntegerField

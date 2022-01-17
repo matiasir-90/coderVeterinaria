@@ -29,20 +29,19 @@ urlpatterns = [
     path(r'^borrar/(?P<pk>\d+)$', views.CursoDelete.as_view(), name='Delete'),
 
     path('clientes', views.clientes, name="Clientes"),
-    path('cliente/list', views.ClienteList.as_view(), name='List'),
     path('leerClientes', views.leerClientes, name="LeerClientes"),
     path('eliminarCliente/<cliente_nro>/', views.eliminarCliente, name="EliminarCliente"),
     path('editarCliente/<cliente_nro>/', views.editarCliente, name="EditarCliente"),
   
     path('animales', views.animales, name="Animal"),
     path('leerAnimal', views.leerAnimales, name="LeerAnimales"),
-    path('eliminarAnimal/<animal_nro>/', views.eliminarAnimal, name="EliminarAnimal"),
-    path('editarAnimal/<animal_nro>/', views.editarCliente, name="EditarAnimal"),
+    path('eliminarAnimal/<nombre_nro>/', views.eliminarAnimal, name="EliminarAnimal"),
+    path('editarAnimal/<nombre_nro>/', views.editarCliente, name="EditarAnimal"),
     
-    path('doctores', views.clientes, name="Doctor"),
+    path('doctores', views.doctores, name="Doctor"),
     path('leerDoctores', views.leerDoctores, name="LeerDoctores"),
     path('eliminarDoctor/<doctor_nro>/', views.eliminarDoctor, name="EliminarDoctor"),
-    path('editarDoctor/<Doctor_nro>/', views.editarDoctor, name="EditarDoctor"),
+    path('editarDoctor/<doctor_nro>/', views.editarDoctor, name="EditarDoctor"),
  
 ]
 

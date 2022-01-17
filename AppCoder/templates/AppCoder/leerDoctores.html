@@ -1,7 +1,7 @@
 {% extends "AppCoder/padre.html" %}
 
     {% load static %}
-    <title>Leo los profesores</title>
+    <title>Leo los Doctores</title>
     {% block titulo %}
 
     <h1 class="mb-0">Nuestros Doctores </h1>
@@ -16,6 +16,8 @@
         <li>{{p}}</li>  
         <button>
             <a href="{% url 'EliminarDoctor' p.nombre %}"> Eliminar</a>
+        </button>
+        <button>
             <a href="{% url 'EditarDoctor' p.nombre %}"> Editar</a>
         </button>
 

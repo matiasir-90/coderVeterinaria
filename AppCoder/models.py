@@ -53,11 +53,15 @@ class Animal (models.Model):
     raza=models.CharField(max_length=40)
     antecedentes=models.CharField(max_length=500)
     def __str__(self):
-        return f"Nombre: {self.nombre} - especie {self.especie} - raza {self.raza}  "
+        return f"Nombre: {self.nombre} - especie: {self.especie} - raza: {self.raza} - antecedentes: {self.antecedentes} "
     
 class Doctor (models.Model):
     nombre=models.CharField(max_length=40)
     direccion=models.CharField(max_length=40)
     especialidad=models.CharField(max_length=40)
     matricula=models.IntegerField
+    def __str__(self):
+        return f"Nombre: {self.nombre} - direccion: {self.direccion} - especialidad: {self.especialidad} - matricula: {self.matricula} "
+    
+    
     
