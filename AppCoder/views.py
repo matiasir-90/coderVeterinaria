@@ -366,10 +366,10 @@ def eliminarAnimal(request, animal_nro):
 
       return render(request, "AppCoder/leerAnimales.html",contexto)
 
-def editarAnimal(request, nombre_nro):
+def editarAnimal(request, animal_nro):
     
       #Recibe el nombre del profesor que vamos a modificar
-      animal = Animal.objects.get(nombre=nombre_nro)
+      animal = Animal.objects.get(nombre=animal_nro)
 
       #Si es metodo POST hago lo mismo que el agregar
       if request.method == 'POST':
@@ -397,7 +397,7 @@ def editarAnimal(request, nombre_nro):
             miFormulario= AnimalFormulario(initial={'nombre': animal.nombre, 'especie':animal.especie , 'raza':animal.raza,'antecedentes':animal.antecedentes}) 
 
       #Voy al html que me permite editar
-      return render(request, "AppCoder/editarAnimal.html", {"miFormulario":miFormulario, "nombre":nombre_nro})
+      return render(request, "AppCoder/editarAnimal.html", {"miFormulario":miFormulario, "nombre":animal_nro})
 ######################################################################################################################################################
 
 

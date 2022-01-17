@@ -35,8 +35,8 @@ urlpatterns = [
   
     path('animales', views.animales, name="Animal"),
     path('leerAnimal', views.leerAnimales, name="LeerAnimales"),
-    path('eliminarAnimal/<nombre_nro>/', views.eliminarAnimal, name="EliminarAnimal"),
-    path('editarAnimal/<nombre_nro>/', views.editarCliente, name="EditarAnimal"),
+    path('eliminarAnimal/<animal_nro>/', views.eliminarAnimal, name="EliminarAnimal"),
+    path('editarAnimal/<animal_nro>/', views.editarAnimal, name="EditarAnimal"),
     
     path('doctores', views.doctores, name="Doctor"),
     path('leerDoctores', views.leerDoctores, name="LeerDoctores"),
