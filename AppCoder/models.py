@@ -59,7 +59,6 @@ class Doctor (models.Model):
     nombre=models.CharField(max_length=40)
     direccion=models.CharField(max_length=40)
     especialidad=models.CharField(max_length=40)
-    matricula=models.IntegerField
     def __str__(self):
         return f"Nombre: {self.nombre} - direccion: {self.direccion} - especialidad: {self.especialidad} "
     

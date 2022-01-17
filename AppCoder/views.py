@@ -225,7 +225,7 @@ def cliente(request):
       return HttpResponse(documentoDeTexto)
 
 ##########################################################################################################################################################################
-def clientes(request):
+def clientes_agregar(request):
     
       if request.method == 'POST':
 
@@ -247,7 +247,7 @@ def clientes(request):
 
             miFormulario= ClienteFormulario() #Formulario vacio para construir el html
 
-      return render(request, "AppCoder/clientes.html", {"miFormulario":miFormulario})
+      return render(request, "AppCoder/clientes_agregar.html", {"miFormulario":miFormulario})
 
 def leerClientes(request):
     
@@ -292,7 +292,7 @@ def editarCliente(request, cliente_nro):
 
                   cliente.save()
 
-                  return render(request, "AppCoder/leerClientes.html") #Vuelvo al inicio o a donde quieran
+                  return render(request, "AppCoder/clientes.html") #Vuelvo al inicio o a donde quieran
       #En caso que no sea post
       else: 
             #Creo el formulario con los datos que voy a modificar
@@ -302,22 +302,45 @@ def editarCliente(request, cliente_nro):
       #Voy al html que me permite editar
       return render(request, "AppCoder/editarCliente.html", {"miFormulario":miFormulario, "cliente_nro":cliente_nro})
 
-
-
-
-class ClienteCreacion(CreateView):
-    model = Cliente
-    success_url = "../cliente/list"
-    fields = ["clientenro","nombre","apellido","direccion"]
-
-class ClienteUpdate(UpdateView):
-    model = Cliente
-    success_url = "../cliente/list"
-    fields = ["clientenro","nombre","apellido","direccion"]
+def buscarClientes(request):
     
-class ClienteDelete(DeleteView):
-    model = Cliente
-    success_url = "../cliente/list"
+      if  request.GET["nombre"]:
+
+	      #respuesta = f"Estoy buscando la camada nro: {request.GET['camada'] }" 
+            nombre = request.GET['nombre'] 
+            clientes = Cliente.objects.filter(nombre__icontains=nombre)
+
+            return render(request, "AppCoder/clientes.html", {"clientes":clientes, "nombre":nombre})
+
+      else: 
+
+	      respuesta = "No enviaste datos"
+      #No olvidar from django.http import HttpResponse
+      return HttpResponse(respuesta)
+
+def clientes(request):
+    
+      if request.method == 'POST':
+
+            miFormulario = ClienteFormulario(request.POST) #aquí mellega toda la información del html
+
+            print(miFormulario)
+
+            if miFormulario.is_valid:   #Si pasó la validación de Django
+
+                  informacion = miFormulario.cleaned_data
+
+                  cliente = Cliente ( nombre=informacion['nombre'], apellido=informacion['apellido'], direccion=informacion['direccion']) 
+              
+                  cliente.save()
+
+                  return render(request, "AppCoder/leerClientes.html") #Vuelvo al inicio o a donde quieran
+
+      else: 
+
+            miFormulario= ClienteFormulario() #Formulario vacio para construir el html
+
+      return render(request, "AppCoder/clientes.html", {"miFormulario":miFormulario})
 
 #########################################################################################################################################################################################
 
@@ -345,6 +368,29 @@ def animales(request):
 
       return render(request, "AppCoder/animales.html", {"miFormulario":miFormulario})
 
+def animales_agregar(request):
+    
+      if request.method == 'POST':
+
+            miFormulario = AnimalFormulario(request.POST) #aquí mellega toda la información del html
+
+            print(miFormulario)
+
+            if miFormulario.is_valid:   #Si pasó la validación de Django
+
+                  informacion = miFormulario.cleaned_data
+
+                  animal = Animal ( nombre=informacion['nombre'], especie=informacion['especie'], raza=informacion['raza'],antecedentes=informacion['antecedentes']) 
+              
+                  animal.save()
+
+                  return render(request, "AppCoder/leerAnimales.html") #Vuelvo al inicio o a donde quieran
+
+      else: 
+
+            miFormulario= AnimalFormulario() #Formulario vacio para construir el html
+
+      return render(request, "AppCoder/animales_agregar.html", {"miFormulario":miFormulario})
 def leerAnimales(request):
     
       animales = Animal.objects.all() #trae todos los Cliente
@@ -398,6 +444,24 @@ def editarAnimal(request, animal_nro):
 
       #Voy al html que me permite editar
       return render(request, "AppCoder/editarAnimal.html", {"miFormulario":miFormulario, "nombre":animal_nro})
+
+
+def buscarAnimales(request):
+    
+      if  request.GET["nombre"]:
+
+	      #respuesta = f"Estoy buscando la camada nro: {request.GET['camada'] }" 
+            nombre = request.GET['nombre'] 
+            clientes = Cliente.objects.filter(nombre__icontains=nombre)
+
+            return render(request, "AppCoder/animales.html", {"animales":animales, "nombre":nombre})
+
+      else: 
+
+	      respuesta = "No enviaste datos"
+      #No olvidar from django.http import HttpResponse
+      return HttpResponse(respuesta)
+
 ######################################################################################################################################################
 
 
@@ -474,4 +538,44 @@ def editarDoctor(request, doctor_nro):
             miFormulario= DoctorFormulario(initial={'nombre': doctor.nombre,'direccion':doctor.direccion,'especialidad':doctor.especialidad}) 
 
       #Voy al html que me permite editar
+      
       return render(request, "AppCoder/editarDoctor.html", {"miFormulario":miFormulario, "nombre":doctor_nro})
+
+def buscarDoctores(request):
+    
+      if  request.GET["nombre"]:
+
+	      #respuesta = f"Estoy buscando la camada nro: {request.GET['camada'] }" 
+            nombre = request.GET['nombre'] 
+            doctores = Doctor.objects.filter(nombre__icontains=nombre)
+
+            return render(request, "AppCoder/doctores.html", {"doctores":doctores, "nombre":nombre})
+
+      else: 
+
+	      respuesta = "No enviaste datos"
+      #No olvidar from django.http import HttpResponse
+      return HttpResponse(respuesta)
+
+def doctores_agregar(request):
+    
+      if request.method == 'POST':
+
+            miFormulario = DoctorFormulario(request.POST) #aquí mellega toda la información del html
+
+            print(miFormulario)
+
+            if miFormulario.is_valid:   #Si pasó la validación de Django
+
+                  informacion = miFormulario.cleaned_data
+
+                  doctor = Doctor(nombre=informacion['nombre'],direccion=informacion['direccion'], especialidad=informacion['especialidad']) 
+                  doctor.save()
+
+                  return render(request, "AppCoder/leerDoctores.html") #Vuelvo al inicio o a donde quieran
+
+      else: 
+
+            miFormulario= DoctorFormulario() #Formulario vacio para construir el html
+
+      return render(request, "AppCoder/doctores_agregar.html", {"miFormulario":miFormulario})

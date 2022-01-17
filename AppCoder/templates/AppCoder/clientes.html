@@ -6,22 +6,34 @@
 <h1 class="mb-0">Nuestros Clientes </h1>
 {% endblock %}
 {% block contenidoQueCambia %}
-    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    {% if miFormulario.errors %}
 
-    <p style="color: red;"> Están mal los datos, revisar</p>
+    <h3>Podes buscar un Cliente:</h3>
 
-    {% endif %}
-    <form action="" method="POST">{% csrf_token %}
+    <form action="/AppCoder/buscarClientes/" method="GET">
 
-        <!-- Acá está la magia de Django-->
-        
-        <table>
-            {{ miFormulario.as_table }}
-        </table>
+        <input type="nombre" name="nombre" id="nombre">
 
-        <input type="submit", value="Enviar">
+        <input type="submit" value="Buscar">
+
+
+
 
     </form>
+
+    {% if clientes %}
+
+    <p>Estamos buscando el: {{clientes}}</p>
+
+    <ul>
+	{% for cliente in clientes %}
+        cliente
+		<li> nombre: {{cliente.nombre}} </li>
+		<li> apellido: {{cliente.apellido}} </li>
+		<li> direccion:{{cliente.direccion}} </li>
+	{% endfor %}
+
+    </ul>
+
+    {% endif %}
 
 {% endblock %}

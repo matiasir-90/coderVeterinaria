@@ -5,35 +5,36 @@
 
 <h1 class="mb-0">Nuestros Doctores</h1>
 {% endblock %}
-{% block contenidoQueCambia %}
 
-
-    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    <h1>Formulario - Agregar Doctor</h1>
+    {% block contenidoQueCambia %}
     
-    {% if miFormulario.errors %}
-
-    <p style="color: red;"> Están mal los datos, revisar</p>
-
-    {% endif %}
-
-
-    <form action="" method="POST">{% csrf_token %}
-
-        <!-- Acá está la magia de Django-->
-        
-        <table>
-
-            {{ miFormulario.as_table }}
-
-
-        </table>
-
-
-        <input type="submit", value="Enviar">
-
-    </form>
-
-  
-
-{% endblock %}
+        <h3>Podes buscar un Doctor:</h3>
+    
+        <form action="/AppCoder/buscarDoctores/" method="GET">
+    
+            <input type="nombre" name="nombre" id="nombre">
+    
+            <input type="submit" value="Buscar">
+    
+    
+    
+    
+        </form>
+    
+        {% if doctores %}
+    
+        <p>Estamos buscando el: {{doctores}}</p>
+    
+        <ul>
+        {% for doctor in doctores %}
+        doctor
+            <li> nombre: {{doctor.nombre}} </li>
+            <li> direccion:{{doctor.direccion}} </li>
+            <li> especialidad: {{doctor.especialidad}} </li>
+        {% endfor %}
+    
+        </ul>
+    
+        {% endif %}
+    
+    {% endblock %}

@@ -1,41 +1,43 @@
 {% extends "AppCoder/padre.html" %}
 
 {% load static %}
+{% block titulo %}
+
+<h1 class="mb-2">Bienvenido a Veterinaria online </h1>
+{% endblock %}
 
 {% block contenidoQueCambia %}
 
-
-    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    <h1>Este es el título del Inicio que cambio</h1>
   
+    <h1 class="mb-8">buscar clientes </h1>
 
-    <h3>Podes buscar una camada:</h3>
+     <form action="/AppCoder/buscarClientes/" method="GET">
 
-    <form action="/AppCoder/buscar/" method="GET">
-
-        <input type="number" name="camada" id="camada">
+        <input type="nombre" name="nombre" id="nombre">
 
         <input type="submit" value="Buscar">
 
+    </form>
 
 
+    <h1 class="mb-8">buscar doctores </h1>
+
+    <form action="/AppCoder/buscarDoctores/" method="GET">
+
+        <input type="nombre" name="nombre" id="nombre">
+
+        <input type="submit" value="Buscar">
 
     </form>
 
-    
+    <h1 class="mb-8">buscar animales </h1>
 
-    {% if cursos %}
-
-    <p>Estamos buscando el: {{camada}}</p>
-
-    <ul>
-	{% for curso in cursos %}
-		<li> {{curso.nombre}} </li>
-		<li> {{curso.camada}} </li>
-	{% endfor %}
-
-    </ul>
-
-    {% endif %}
+    <form action="/AppCoder/buscarAnimales/" method="GET">
+   
+           <input type="nombre" name="nombre" id="nombre">
+   
+           <input type="submit" value="Buscar">
+    </form>
+   
 
 {% endblock %}

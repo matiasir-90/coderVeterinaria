@@ -4,24 +4,40 @@
 {% block titulo %}
 
 <h1 class="mb-0">Nuestros Animales en adopcion</h1>
+
 {% endblock %}
-{% block contenidoQueCambia %}
-    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    {% if miFormulario.errors %}
 
-    <p style="color: red;"> Están mal los datos, revisar</p>
-
-    {% endif %}
-    <form action="" method="POST">{% csrf_token %}
-
-        <!-- Acá está la magia de Django-->
-        
-        <table>
-            {{ miFormulario.as_table }}
-        </table>
-
-        <input type="submit", value="Enviar">
-
-    </form>
+    {% block contenidoQueCambia %}
+    
+        <h3>Podes buscar un animal:</h3>
+    
+        <form action="/AppCoder/buscarAnimales/" method="GET">
+    
+            <input type="nombre" name="nombre" id="nombre">
+    
+            <input type="submit" value="Buscar">
+    
+    
+    
+    
+        </form>
+    
+        {% if animales %}
+    
+        <p>Estamos buscando el: {{animales}}</p>
+    
+        <ul>
+        {% for animal in animales %}
+        animal
+            <li> nombre: {{animal.nombre}} </li>
+            <li> especie:{{animal.especie}} </li>
+            <li> raza: {{animal.raza}} </li>
+            <li> antecedentes: {{animal.antecedentes}} </li>
+        {% endfor %}
+    
+        </ul>
+    
+        {% endif %}
+    
 
 {% endblock %}
