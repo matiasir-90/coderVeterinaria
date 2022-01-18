@@ -34,7 +34,10 @@ urlpatterns = [
     path('register',views.register, name ='Register'),
     path('logout',LogoutView.as_view(template_name="Appcoder/logout.html"), name ='Logout'),
     path('editarPerfil',views.editarPerfil, name ='EditarPerfil'),
-
-    path('agregarAvatar',views.agregarAvatar, name ='AgregarAvatar'),
+    
+    
+    path('ayuda',views.ayuda, name ='Ayuda'),
+    path('acercaDe',views.acercaDe, name ='AcercaDe'),
+    path('contacto',views.contacto, name ='Contacto'),
 ]
 

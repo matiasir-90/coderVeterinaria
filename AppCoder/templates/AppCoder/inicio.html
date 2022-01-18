@@ -4,11 +4,7 @@
 {% block titulo %}
 
 <h1 class="mb-2">Bienvenido {{mensaje}} a Veterinaria online </h1>
-    {% if request.user.is.authenticated %}
-    <div>
-        <img height="50px" src="{{avatar}}" alt="">
-    </div>
-    {%endif %}
+
 {% endblock %}
 {% block contenidoQueCambia %}
  

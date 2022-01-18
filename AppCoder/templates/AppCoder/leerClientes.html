@@ -9,14 +9,14 @@
     {% block contenidoQueCambia %}
     {% for p in clientes %}
 
-        <li>{{p}}  
+        <li>{{p}}  </li>  
         <button>
             <a href="{% url 'EliminarCliente' p.nombre %}"> Eliminar</a> 
         </button>
         <button>
             <a href="{% url 'EditarCliente' p.nombre %}"> Editar</a>
         </button>
-        </li>
+       
 
 
     {% endfor %}

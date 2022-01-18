@@ -3,9 +3,11 @@ from urllib import request
 from django.http.request import QueryDict
 from django.shortcuts import redirect, render, HttpResponse
 from django.http import HttpResponse
-from AppCoder.models import Animal, Avatar,  Doctor,Cliente
-from AppCoder.forms import ClienteFormulario,AnimalFormulario,DoctorFormulario,UserRegisterForm,UserEditForm,AvatarFormulario
+from AppCoder.models import Animal,  Doctor,Cliente
+    
+from AppCoder.forms import ClienteFormulario,AnimalFormulario,DoctorFormulario,UserRegisterForm,UserEditForm
 
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 
 from django.contrib.auth.forms import AuthenticationForm
@@ -18,16 +20,8 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def inicio(request):
       
-      diccionario ={}
-      cantidadDeAvatares=0
-      if request.user.is_authenticated:
             
-            avatar=Avatar.objects.filter(user=request.user.id)
-            for a in avatar:
-                  cantidadDeAvatares=cantidadDeAvatares+1
-            diccionario["avatar"]=avatar[cantidadDeAvatares-1].imagen.url
-            
-      return render(request, "AppCoder/inicio.html",diccionario)
+      return render(request, "AppCoder/inicio.html")
 
 
 
@@ -56,6 +50,7 @@ def clientes_agregar(request):
             miFormulario= ClienteFormulario() #Formulario vacio para construir el html
 
       return render(request, "AppCoder/clientes_agregar.html", {"miFormulario":miFormulario})
+
 @login_required
 def leerClientes(request):
     
@@ -124,6 +119,7 @@ def buscarClientes(request):
 
 	      respuesta = "No enviaste datos"
       #No olvidar from django.http import HttpResponse
+      
       return HttpResponse(respuesta)
 
 def clientes(request):
@@ -369,7 +365,7 @@ def buscarDoctores(request):
 def doctores_agregar(request):
     
       if request.method == 'POST':
-
+    
             miFormulario = DoctorFormulario(request.POST) #aquí mellega toda la información del html
 
             print(miFormulario)
@@ -417,7 +413,7 @@ def register(request):
             if form.is_valid():
                   username= form.cleaned_data['username']
                   form.save()
-                  return render(request,"AppCoder/inicio.html",{"mensaje":"Usuario Creado"})
+                  return render(request,"AppCoder/inicio.html",{"mensaje":f"{username} Creado"})
       else:
             form=UserRegisterForm()
       return render(request,"Appcoder/register.html",{"form":form})
@@ -441,18 +437,13 @@ def editarPerfil(request):
       
       return render(request,"AppCoder/editarPerfil.html",{"miFormulario":miFormulario,"usuario":usuario})
 
-
-@login_required
-def agregarAvatar(request):
-      if request.method=='POST':
-            miFormulario=AvatarFormulario(request.POST,request.FILES)
-            
-            if miFormulario.is_valid():
-                  u= User.objects.get(username=request.user)
-                  avatar=Avatar(user=u, imagen=miFormulario.cleaned_data['imagen'])
-                  avatar.save()
-                  
-                  return render(request,"AppCoder/inicio.html")
-      else:
-            miFormulario=AvatarFormulario()
-      return render(request,"AppCoder/agregarAvatar.html",{"miformulario":miFormulario})
+######################################################################################################################################################
+def ayuda(request):
+      
+      return render(request, "AppCoder/ayuda.html")
+def contacto(request):
+      
+      return render(request, "AppCoder/contacto.html")
+def acercaDe(request):
+      
+      return render(request, "AppCoder/acercaDe.html")

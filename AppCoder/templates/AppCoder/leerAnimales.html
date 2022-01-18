@@ -14,6 +14,8 @@
         <li>{{p}}</li>  
         <button>
             <a href="{% url 'EliminarAnimal' p.nombre %}"> Eliminar</a>
+        </button>
+        <button>
             <a href="{% url 'EditarAnimal' p.nombre %}"> Editar</a>
         </button>
 
@@ -22,7 +24,8 @@
     {% endfor %}
 
     <br>
+    <button>
     <a href="animales_agregar">Agregar otro Animal</a>
-
+    </button>
     
 {% endblock %}
