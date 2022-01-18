@@ -28,7 +28,14 @@
                 <a class="navbar-brand" href="{% url 'LeerClientes' %}">Clientes</a>
                 <a class="navbar-brand" href="{% url 'LeerDoctores' %}">Doctores</a>
                 <a class="navbar-brand" href="{% url 'LeerAnimales' %}">Animales</a>
-                <a class="btn btn-primary" href="#NADAAUN">INICIAR</a>
+                {% if not request.user.is_authenticated %}
+                <a class="btn btn-primary" href="{% url 'Login' %}">Iniciar</a>
+                <a class="btn btn-primary" href="{% url 'Register' %}">Registrarse</a>
+                
+                {% else %}
+                <a class="btn btn-primary" href="{% url 'Logout' %}">Salir</a>
+                {% endif %}
+                
             </div>
         </nav>
 
@@ -77,7 +84,7 @@
                     <div class="col-lg-6 h-50 text-center text-lg-start my-auto">
                         <ul class="list-inline mb-2">
                             <li class="list-inline-item"><a href="#!">Ayuda</a></li>
-                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!">Acerca de</a></li>
                             <li class="list-inline-item"><a href="#!">Contacto</a></li>
                       
                         </ul>

@@ -5,11 +5,12 @@
 
 <h1 class="mb-2">Bienvenido a Veterinaria online </h1>
 {% endblock %}
-
 {% block contenidoQueCambia %}
-
-  
-    <h1 class="mb-8">buscar clientes </h1>
+ 
+<h1>Bienvenido :{{mensaje}}</h1>
+  <table>
+    <td>
+    <h1 class="mb-8">clientes </h1>
 
      <form action="/AppCoder/buscarClientes/" method="GET">
 
@@ -18,9 +19,9 @@
         <input type="submit" value="Buscar">
 
     </form>
-
-
-    <h1 class="mb-8">buscar doctores </h1>
+    </td>
+    <td>
+    <h1 class="mb-8">doctores </h1>
 
     <form action="/AppCoder/buscarDoctores/" method="GET">
 
@@ -29,8 +30,9 @@
         <input type="submit" value="Buscar">
 
     </form>
-
-    <h1 class="mb-8">buscar animales </h1>
+    </td>
+    <td>
+    <h1 class="mb-8">animales </h1>
 
     <form action="/AppCoder/buscarAnimales/" method="GET">
    
@@ -38,6 +40,8 @@
    
            <input type="submit" value="Buscar">
     </form>
-   
-
+    </td>
+   </table>
+<p></p>
+<p></p>
 {% endblock %}

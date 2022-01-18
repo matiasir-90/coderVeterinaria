@@ -1,16 +1,19 @@
 from typing import List
+from urllib import request
 from django.http.request import QueryDict
 from django.shortcuts import redirect, render, HttpResponse
 from django.http import HttpResponse
 from AppCoder.models import Animal, Curso, Doctor, Profesor,Cliente
-from AppCoder.forms import CursoFormulario, ProfesorFormulario,ClienteFormulario,AnimalFormulario,DoctorFormulario
+from AppCoder.forms import CursoFormulario, ProfesorFormulario,ClienteFormulario,AnimalFormulario,DoctorFormulario,UserRegisterForm,UserEditForm
 
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth.decorators import login_required 
 
 # Create your views here.
 
@@ -113,6 +116,7 @@ def buscar(request):
       #No olvidar from django.http import HttpResponse
       return HttpResponse(respuesta)
 
+@login_required
 def leerProfesores(request):
 
       profesores = Profesor.objects.all() #trae todos los profesores
@@ -122,7 +126,7 @@ def leerProfesores(request):
       return render(request, "AppCoder/leerProfesores.html",contexto)
 
 
-
+@login_required
 def eliminarProfesor(request, profesor_nombre):
 
       profesor = Profesor.objects.get(nombre=profesor_nombre)
@@ -136,7 +140,7 @@ def eliminarProfesor(request, profesor_nombre):
       return render(request, "AppCoder/leerProfesores.html",contexto)
 
 
-
+@login_required
 def editarProfesor(request, profesor_nombre):
 
       #Recibe el nombre del profesor que vamos a modificar
@@ -225,6 +229,7 @@ def cliente(request):
       return HttpResponse(documentoDeTexto)
 
 ##########################################################################################################################################################################
+@login_required
 def clientes_agregar(request):
     
       if request.method == 'POST':
@@ -248,7 +253,7 @@ def clientes_agregar(request):
             miFormulario= ClienteFormulario() #Formulario vacio para construir el html
 
       return render(request, "AppCoder/clientes_agregar.html", {"miFormulario":miFormulario})
-
+@login_required
 def leerClientes(request):
     
       clientes = Cliente.objects.all() #trae todos los Cliente
@@ -257,7 +262,7 @@ def leerClientes(request):
 
       return render(request, "AppCoder/leerClientes.html",contexto)
 
-
+@login_required
 def eliminarCliente(request, cliente_nro):
 
       clientes = Cliente.objects.get(nombre=cliente_nro)
@@ -269,7 +274,7 @@ def eliminarCliente(request, cliente_nro):
       contexto= {"clientes":cliente} 
 
       return render(request, "AppCoder/leerClientes.html",contexto)
-
+@login_required
 def editarCliente(request, cliente_nro):
     
       #Recibe el nombre del profesor que vamos a modificar
@@ -367,7 +372,7 @@ def animales(request):
             miFormulario= AnimalFormulario() #Formulario vacio para construir el html
 
       return render(request, "AppCoder/animales.html", {"miFormulario":miFormulario})
-
+@login_required
 def animales_agregar(request):
     
       if request.method == 'POST':
@@ -391,6 +396,7 @@ def animales_agregar(request):
             miFormulario= AnimalFormulario() #Formulario vacio para construir el html
 
       return render(request, "AppCoder/animales_agregar.html", {"miFormulario":miFormulario})
+@login_required
 def leerAnimales(request):
     
       animales = Animal.objects.all() #trae todos los Cliente
@@ -399,7 +405,7 @@ def leerAnimales(request):
 
       return render(request, "AppCoder/leerAnimales.html",contexto)
 
-
+@login_required
 def eliminarAnimal(request, animal_nro):
 
       animales = Animal.objects.get(nombre=animal_nro)
@@ -411,7 +417,7 @@ def eliminarAnimal(request, animal_nro):
       contexto= {"animales":animal} 
 
       return render(request, "AppCoder/leerAnimales.html",contexto)
-
+@login_required
 def editarAnimal(request, animal_nro):
     
       #Recibe el nombre del profesor que vamos a modificar
@@ -452,7 +458,7 @@ def buscarAnimales(request):
 
 	      #respuesta = f"Estoy buscando la camada nro: {request.GET['camada'] }" 
             nombre = request.GET['nombre'] 
-            clientes = Cliente.objects.filter(nombre__icontains=nombre)
+            animales = Animal.objects.filter(nombre__icontains=nombre)
 
             return render(request, "AppCoder/animales.html", {"animales":animales, "nombre":nombre})
 
@@ -487,7 +493,7 @@ def doctores(request):
             miFormulario= DoctorFormulario() #Formulario vacio para construir el html
 
       return render(request, "AppCoder/doctores.html", {"miFormulario":miFormulario})
-
+@login_required
 def leerDoctores(request):
     
       doctores = Doctor.objects.all() #trae todos los Cliente
@@ -496,7 +502,7 @@ def leerDoctores(request):
 
       return render(request, "AppCoder/leerDoctores.html",contexto)
 
-
+@login_required
 def eliminarDoctor(request, doctor_nro):
 
       doctor = Doctor.objects.get(nombre=doctor_nro)
@@ -508,7 +514,7 @@ def eliminarDoctor(request, doctor_nro):
       contexto= {"doctores":doctor} 
 
       return render(request, "AppCoder/leerDoctores.html",contexto)
-
+@login_required
 def editarDoctor(request, doctor_nro):
     
       #Recibe el nombre del profesor que vamos a modificar
@@ -556,7 +562,7 @@ def buscarDoctores(request):
 	      respuesta = "No enviaste datos"
       #No olvidar from django.http import HttpResponse
       return HttpResponse(respuesta)
-
+@login_required
 def doctores_agregar(request):
     
       if request.method == 'POST':
@@ -579,3 +585,55 @@ def doctores_agregar(request):
             miFormulario= DoctorFormulario() #Formulario vacio para construir el html
 
       return render(request, "AppCoder/doctores_agregar.html", {"miFormulario":miFormulario})
+######################################################################################################################################################
+
+def login_request(request):
+      if request.method== "POST":
+            form =AuthenticationForm(request,data=request.POST)
+            
+            if form.is_valid():
+                  usuario= form.cleaned_data.get('username')
+                  contra= form.cleaned_data.get('password')
+                  
+                  user= authenticate(username=usuario,password=contra)
+                  
+                  if user is not None:
+                        login (request,user)
+                        return render(request,"Appcoder/inicio.html",{"mensaje":f"Bienvenido {usuario}"})
+                  else:
+                        return render(request,"Appcoder/inicio.html",{"mensaje":"datos incorrectos"})
+            else:
+                  return render(request,"Appcoder/inicio.html",{"mensaje":f"formulario erroneo"})
+      form=AuthenticationForm()
+      
+      return render(request,"Appcoder/login.html",{'form':form})
+
+def register(request):
+      if request.method =='POST':
+            form= UserRegisterForm(request.POST)
+            if form.is_valid():
+                  username= form.cleaned_data['username']
+                  form.save()
+                  return render(request,"AppCoder/inicio.html",{"mensaje":"Usuario Creado"})
+      else:
+            form=UserRegisterForm()
+      return render(request,"Appcoder/register.html",{"form":form})
+
+@login_required
+def editarPerfil(request):
+      usuario = request.user
+      if request.method=='POST':
+            miFormulario=UserEditForm(request.POST)
+            if  miFormulario.is_valid():
+                  information= miFormulario.cleaned_data
+                  usuario.email=information['email']
+                  usuario.password1=information['password1']
+                  usuario.password2=information['password2']
+
+                  usuario.save()
+                  
+                  return render(request,"Appcoder/inicio.html")
+      else:
+            miFormulario = UserEditForm(initial={'email':usuario.email})
+      
+      return render(request,"AppCoder/editarPerfil.html",{"miFormulario":miFormulario,"usuario":usuario})

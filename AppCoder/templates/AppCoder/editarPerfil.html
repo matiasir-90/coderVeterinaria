@@ -1,0 +1,21 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+<title>Editar perfil</title>
+{% block titulo %}
+
+<h1 class="mb-2">Bienvenido a Veterinaria online </h1>
+
+<h1 class="mb-2">Modificacion de Usuario </h1>
+{% endblock %}
+
+{% block contenidoQueCambia %}
+<form action="" method="post">
+        {%  csrf_token %}
+        <table>
+        {{ miFormulario.as_table }}
+        </table>
+        <input type="submit" value="Enviar">
+    </form>
+
+{% endblock %}
