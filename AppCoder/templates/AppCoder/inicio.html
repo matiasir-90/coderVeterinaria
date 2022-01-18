@@ -3,11 +3,17 @@
 {% load static %}
 {% block titulo %}
 
-<h1 class="mb-2">Bienvenido a Veterinaria online </h1>
+<h1 class="mb-2">Bienvenido {{mensaje}} a Veterinaria online </h1>
+    {% if request.user.is.authenticated %}
+    <div>
+        <img height="50px" src="{{avatar}}" alt="">
+    </div>
+    {%endif %}
 {% endblock %}
 {% block contenidoQueCambia %}
  
-<h1>Bienvenido :{{mensaje}}</h1>
+
+
   <table>
     <td>
     <h1 class="mb-8">clientes </h1>

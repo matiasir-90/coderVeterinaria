@@ -1,12 +1,15 @@
 {% extends "AppCoder/padre.html" %}
 
 {% load static %}
+{% block titulo %}
 
+<h1 class="mb-0">Nuestros Animales en adopcion</h1>
+{% endblock %}
 {% block contenidoQueCambia %}
 
 
     <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    <h1>Formulario - Agregar Profesor</h1>
+    <h1>Formulario - Agregar Avatar</h1>
     
     {% if miFormulario.errors %}
 
@@ -15,7 +18,8 @@
     {% endif %}
 
 
-    <form action="" method="POST">{% csrf_token %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
 
         <!-- Acá está la magia de Django-->
         
@@ -30,7 +34,5 @@
         <input type="submit", value="Enviar">
 
     </form>
-
-  
 
 {% endblock %}

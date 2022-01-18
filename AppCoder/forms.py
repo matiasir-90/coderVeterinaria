@@ -5,18 +5,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-class CursoFormulario(forms.Form):
-
-    #Especificar los campos
-    curso = forms.CharField()
-    camada = forms.IntegerField()
 
 
-class ProfesorFormulario(forms.Form):   
-    nombre= forms.CharField(max_length=30)
-    apellido= forms.CharField(max_length=30)
-    email= forms.EmailField()
-    profesion= forms.CharField(max_length=30)
+
 
 class AnimalFormulario (forms.Form):
     nombre=forms.CharField(required=True)
@@ -62,3 +53,6 @@ class UserEditForm(UserCreationForm):
         model=User
         fields=['email','password1','password2']
         help_text = {k:"" for k in fields}
+
+class AvatarFormulario(forms.Form):
+    imagen=forms.ImageField(required=True)
